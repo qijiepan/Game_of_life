@@ -1,8 +1,8 @@
 Prey prey;
 
 void setup() {
-  size(600,400);
-  frameRate(1);
+  size(400,400);
+  frameRate(10);
   prey = new Prey();
   }
 
