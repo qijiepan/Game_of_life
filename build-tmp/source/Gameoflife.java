@@ -233,7 +233,7 @@ class Prey{
             else if ((board[x][y] == 1) && (food <= competitor)) next[x][y] =-1;       // hungury to death
             else if ((board[x][y] == 1) && (e_infected ==1)) next[x][y] =2;        // eat the infected prey
             else if ((board[x][y] == -1) && (food== 3)) next[x][y] = 3;          // prey reproduction
-            else if ((board[x][y] == -1) && (competitor>5)) next[x][y]=1;  // born (which is pretty hard compared to prey )
+            else if ((board[x][y] == -1) && (competitor==2) && (food >3) ) next[x][y]=1;  // born (which is pretty hard compared to prey )
             else if ((board[x][y] == -2) && (neighbors2 >2)) next[x][y] =0;      // Overporpulation of infected prey;
             else if ((board[x][y] == -2) && (anti_neighbors2>neighbors2)) next[x][y]=0;    // Be eaten;
             else if ((board[x][y] == -2) && (neighbors2 <2)) next[x][y]=0;      //Loneliness
