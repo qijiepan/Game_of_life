@@ -1,6 +1,6 @@
 class Prey{
   int[][] board;
-  int w =8;
+  int w =10;
   int columns,rows;
 
   Prey(){
@@ -24,11 +24,42 @@ class Prey{
         else if(test<=1) board[i][j]=3;  // the probility of alive prey
       }
     }
+
+
   }
 
-  void generate(){
+int[] generate(){
 
     int[][] next = new int[columns+1][rows+1];
+    int count_predator=0;
+    int count_ipredator=0;
+    int count_prey=0;
+    int count_iprey=0;
+    int[] array_D= new int[4];
+
+    for(int i=1;i<columns-1;i++){
+      for(int j=1;j<rows-1;j++){
+        if(board[i][j]==1)
+          count_predator++;
+        if(board[i][j]==2)
+          count_ipredator++;
+        if(board[i][j]==3)
+          count_prey++;
+        if(board[i][j]==-2)
+          count_iprey++;
+      }
+    }
+
+     array_D[0] = count_predator;
+     array_D[1] = count_ipredator;
+     array_D[2] = count_prey;
+     array_D[3] = count_iprey;
+
+
+    //line(600, 50, 600, 350);
+    //line(600,350,950,350);
+    //line()
+
 
     for(int x =0;x<columns;x++){
       for(int y =0;y<rows;y++){
@@ -51,6 +82,8 @@ class Prey{
         int sign3 =0;
         int sign4 =0;
         int e_infected =0;
+        //int count =0;
+
 
         if((board[x][y]==0)||(board[x][y]==3)){//0 dead prey, 3 alive prey.
           for (int i = -1;i<=1;i++){
@@ -184,6 +217,12 @@ class Prey{
             }
           }
         }
+        //if(board[x][y]==3){
+        //      count++;
+        //    } 
+        //if(count>=columns*rows/100)
+        //  next[x][y]=board[x][y];
+        //else{ 
         if ((board[x][y] == 3) && (neighbors<  2)) next[x][y] = 0;           // Loneliness(alive prey bcome dead prey)
             else if ((board[x][y] == 3) && (neighbors >  3)) next[x][y] = 0;        // Overpopulation
             else if ((board[x][y] == 0) && (neighbors == 3)) next[x][y] = 3;           // prey reproduction
@@ -202,23 +241,66 @@ class Prey{
             else if ((board[x][y] == 2) && (food2<= 2*competitor2)) next[x][y]=-1;  // hungury to death
             else if ((board[x][y] == 4) && (host == 0)) next[x][y] =0;        // disease died because of no host
             else                                            next[x][y] = board[x][y];  // Stasis  
+        //}
+
+        //count the number of prey/predator, infected prey/infected predator
+        /*if(board[x][y]==1)
+          count_predator++;
+        if(board[x][y]==2)
+          count_ipredator++;
+        if(board[x][y]==3)
+          count_prey++;
+        if(board[x][y]==-1)
+          count_iprey++;
+        */
         
       }
       
     }board = next;
 
+
+    return(array_D);
   }
   void display(){
     for(int i =0; i<columns;i++){
       for(int j =0; j<rows;j++){
-        if((board[i][j] == 1)) fill(0,0,255); //alive predator
-        else if(board[i][j] == 4) fill(255,0,0); //disease
-        else if(board[i][j] == 3) fill(0,255,0); //alive prey
-        else if(board[i][j] == 2) fill(255,0,255); //infected predator
-        else if(board[i][j] == -2) fill(255,255,0); //infected prey
-        else fill(255);
+
         stroke(0);
-        rect(i*w,j*w,w,w);
+        //rect(i*w,j*w,w,w);
+        if(board[i][j] == 1){
+          fill(255);
+          rect(i*w,j*w,w,w);
+          fill(0,0,255);
+          ellipse(i*w+w/2, j*w+w/2, w,w);
+        } //use blue circle to represent alive predator 
+        else if(board[i][j] == 4){ 
+          fill(255,0,0); //disease
+          rect(i*w,j*w,w,w);
+        }
+        else if(board[i][j] == 3){ 
+          fill(255); 
+          rect(i*w,j*w,w,w);
+          fill(0,255,0);
+          triangle(i*w, j*w, i*w+w, j*w, i*w+w/2, j*w+w);
+        }//alive prey
+        else if(board[i][j] == 2){
+          fill(255); 
+          rect(i*w,j*w,w,w);
+          fill(255,0,255);
+          ellipse(i*w+w/2, j*w+w/2, w, w);
+        } //infected predator
+        else if(board[i][j] == -2){
+          fill(255); //infected prey
+          rect(i*w,j*w,w,w);
+          fill(255,255,0);
+          triangle(i*w, j*w, i*w+w, j*w, i*w+w/2, j*w+w);
+        }
+        else{ 
+          fill(255);
+          rect(i*w,j*w,w,w);
+        }
+        //stroke(0);
+        //rect(i*w,j*w,w,w);
       }
     }
   }
