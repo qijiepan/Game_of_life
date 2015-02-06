@@ -5,6 +5,10 @@ int[] p_prey =new int[2];
 int[] p_ipredator = new int[2];
 int[] p_iprey =new int[2];
 int i =0;
+int[] temp1 = {600,50};
+int[] temp2 = {600,50};
+int[] temp3 = {600,50};
+int[] temp4 = {600,50};
 
 void setup() {
   size(1000,400);
@@ -38,20 +42,38 @@ void draw() {
     p_iprey[0]=610+i;
     i +=10;
     
-    fill(0, 0, 255);
-    rect(p_predator[0],p_predator[1],4,4);
-    strokeWeight(3);
+    stroke(0, 0, 255);
+    point(p_predator[0],p_predator[1]);
+ 
     stroke(255, 0, 255);
     point(p_ipredator[0],p_ipredator[1]);
-    strokeWeight(1);
-    fill(0, 255, 0);
-    ellipse(p_prey[0],p_prey[1],4,4);
-    strokeWeight(3);
-    stroke(255, 0, 255);
-    point(p_iprey[0],p_prey[1]);
 
-    //line(temp1[0], temp1[1], p_predator[0], p_predator[1]);
-    //temp1 = p_predator;
+    stroke(0, 255, 0);
+    point(p_prey[0],p_prey[1]);
+
+    stroke(255, 255, 0);
+    point(p_iprey[0],p_iprey[1]);
+
+    stroke(0, 0, 255);
+    line(temp1[0], temp1[1], p_predator[0], p_predator[1]);
+    temp1[0] = p_predator[0];
+    temp1[1] = p_predator[1];
+
+    stroke(255,0,255);
+    line(temp2[0],temp2[1],p_ipredator[0],p_ipredator[1]);
+    temp2[0] =p_ipredator[0];
+    temp2[1] =p_ipredator[1];
+
+    stroke(0, 255, 0);
+    line(temp3[0],temp3[1],p_prey[0],p_prey[1]);
+    temp3[0]=p_prey[0];
+    temp3[1]=p_prey[1];
+
+    stroke(255,255,0);
+    line(temp4[0],temp4[1],p_iprey[0],p_iprey[1]);
+    temp4[0]=p_iprey[0];
+    temp4[1]=p_iprey[1];
+
     strokeWeight(1);
     prey.display();
   //}
